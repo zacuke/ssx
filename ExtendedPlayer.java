@@ -1,6 +1,8 @@
 package ssx;
 
-import ssx.iChun.ModelInfo;
+//import ssx.iChun.ModelInfo;
+import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -36,8 +38,9 @@ public class ExtendedPlayer implements IExtendedEntityProperties
 	
 	public EntityLivingBase entInstance;
 
-	public ModelInfo entModel;
-	
+	public ModelBase entModel;
+	public Render entRender
+	;
 	/*
 	The default constructor takes no arguments,
 	but I put in the Entity so I can initialize the above variable 'player'

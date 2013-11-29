@@ -1,50 +1,15 @@
 package ssx;
 
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiIngameMenu;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.multiplayer.WorldClient;
-import net.minecraft.client.renderer.EntityRenderer;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderChicken;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.entity.RenderSpider;
-import net.minecraft.client.renderer.entity.RendererLivingEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.passive.EntityHorse;
-import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.packet.Packet131MapData;
-//import net.minecraft.src.EntityRendererProxy;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-
-import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
-import cpw.mods.fml.common.network.PacketDispatcher;
-import net.minecraft.client.renderer.entity.RenderManager;
+//import net.minecraft.src.EntityRendererProxy;
 
 public class TickHandlerClient 
 	implements ITickHandler
@@ -143,16 +108,23 @@ public class TickHandlerClient
 		EntityLivingBase renderView = player;
 
 		props.entInstance.noClip = true;
+		
+		//here is the "puppeteer" code
 		props.entInstance.onGround = player.onGround;
 		props.entInstance.isAirBorne = player.isAirBorne;
 		props.entInstance.motionX = player.motionX;
 		props.entInstance.motionY = player.motionY;
 		props.entInstance.motionZ = player.motionZ;
 		
+		
+		
 		props.entInstance.lastTickPosY -= player.yOffset;
 		props.entInstance.prevPosY -= player.yOffset;
 		props.entInstance.posY -= player.yOffset;
+		
+		//this is critical to getting the legs/arms/wings to move
 		props.entInstance.onUpdate();
+		
 		props.entInstance.lastTickPosY += player.yOffset;
 		props.entInstance.prevPosY += player.yOffset;
 		props.entInstance.posY += player.yOffset;

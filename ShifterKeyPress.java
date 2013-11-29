@@ -1,21 +1,12 @@
 package ssx;
 
 import java.util.EnumSet;
-import java.util.Iterator;
 
-import org.lwjgl.opengl.GL11;
-
-import ssx.iChun.ModelList;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.EnumSkyBlock;
-import net.minecraft.world.World;
 import cpw.mods.fml.client.registry.KeyBindingRegistry.KeyHandler;
 import cpw.mods.fml.common.TickType;
 
@@ -87,9 +78,18 @@ class ShifterKeyPress extends KeyHandler
         String entityName;
         entityName = (String) EntityList.classToStringMapping.get(clz);
         props.currentEntity = entityName;
-        props.entModel = ModelList.getModelInfo(clz);
+        
+        
+        //sprinkle magic dust
+        props.entModel = ShapeShifterX.proxy.modelMap.get(clz);
+        props.entRender = ShapeShifterX.proxy.renderMap.get(clz);
+        
+        //spin up a copy of the entity that is essentially treated like a puppet
+        //during the PlayerTick even in the TickHandlerClient
+        //it copies the state of the player onto this entity 
         props.entInstance = (EntityLivingBase) EntityList.createEntityByName(
                 entityName, Minecraft.getMinecraft().theWorld);
+
     }
 
     @Override

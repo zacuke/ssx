@@ -1,9 +1,5 @@
 package ssx;
 
-import org.lwjgl.opengl.GL11;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,7 +7,10 @@ import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 
+import org.lwjgl.opengl.GL11;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class EventHandler
 {
@@ -53,36 +52,19 @@ public class EventHandler
         EntityPlayer thePlayer;
         ExtendedPlayer props;
 
-        // hide original render
-        //
-        // switch (ShapeShifterX.proxy.tickHandlerClient.renderPass)
-        // {
-        // case 0:
-        // ShapeShifterX.proxy.tickHandlerClient.renderPass++;
-
-        // return;
-        //
-        // case 1:
-        // event.setCanceled(true);
-        // break;
-        // case 2:
-        // ShapeShifterX.proxy.tickHandlerClient.renderPass = 1;
-        // return;
-        //
-        // }
-        //
-
         thePlayer = Minecraft.getMinecraft().thePlayer;
         props = ExtendedPlayer.get(thePlayer);
 
         if (props.currentEntity == null)
-        {
-
             return;
-        }
 
         // else render shape shifter
+        
+        
+        //this hides the original player's renderer
         event.setCanceled(true);
+        
+        
         GL11.glPushMatrix();
 
         // get information about this render
@@ -105,7 +87,8 @@ public class EventHandler
                 1 * (y - RenderManager.renderPosY) + (0D),
                 1 * (z - RenderManager.renderPosZ));
 
-        props.entModel.forceRender(props.entInstance, 0.0D,
+        //then draw the pig or cow or whatever
+        props.entRender.doRender(props.entInstance, 0.0D,
                 0.0D - event.entityPlayer.yOffset, 0.0D, yaw, tick);
 
         GL11.glPopMatrix();

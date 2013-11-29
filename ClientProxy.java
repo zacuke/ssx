@@ -2,24 +2,13 @@ package ssx;
 
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-import ssx.iChun.ModelInfo;
-import ssx.iChun.ModelList;
-import ssx.iChun.ObfHelper;
-import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.model.ModelPig;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderEntity;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.entity.RenderPig;
 import net.minecraft.client.renderer.entity.RendererLivingEntity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.world.World;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.ObfuscationReflectionHelper;
 import cpw.mods.fml.common.registry.TickRegistry;
@@ -27,12 +16,15 @@ import cpw.mods.fml.relauncher.Side;
 
 public class ClientProxy extends CommonProxy
 {
-
+        public static final String[] mainModel  = new String[] { "i", "field_77045_g", "mainModel" }; //RendererLivingEntity
+    
 	@Override
 	public void initMod()
 	{
-	//	RenderingRegistry.registerEntityRenderingHandler(EntityPlayer.class, new RenderPig(new ModelPig(), new ModelPig(0.5F), 0.7F));
-	
+	        //i think this is where you register render
+	        //for any new entity
+	    
+	        //RenderingRegistry.registerEntityRenderingHandler(EntityLivingBase.class, new RenderPig(new ModelPig(), new ModelPig(0.5F), 0.7F));
 		//RenderingRegistry.registerEntityRenderingHandler(EntityLivingBase.class, Shifter.proxy.tickHandlerClient.renderShifterInstance);
 		//RenderingRegistry.registerEntityRenderingHandler(EntityLivingBase.class, Shifter.proxy.tickHandlerClient.renderShifterInstance);
 	}
@@ -44,7 +36,6 @@ public class ClientProxy extends CommonProxy
 	{
 		super.initPostMod();
 
-		HashMap<Class, RendererLivingEntity> renders = new HashMap<Class, RendererLivingEntity>();
 		try
 		{
 			List entityRenderers = (List)ObfuscationReflectionHelper.getPrivateValue(RenderingRegistry.class, RenderingRegistry.instance(), "entityRenderers");
@@ -68,12 +59,13 @@ public class ClientProxy extends CommonProxy
 				}
 				if(render instanceof RendererLivingEntity && clzz != null)
 				{
-					renders.put(clzz, (RendererLivingEntity)render);
+				    renderMap.put(clzz, (RendererLivingEntity)render);
 				}
 			}
 		}
 		catch(Exception e)
-		{
+		{		
+                    e.printStackTrace();
 		}
 
 		for(int i = compatibleEntities.size() - 1; i >= 0; i--)
@@ -81,16 +73,16 @@ public class ClientProxy extends CommonProxy
 			Render rend = RenderManager.instance.getEntityClassRenderObject(compatibleEntities.get(i));
 			if(rend.getClass() == RenderEntity.class)
 			{
-				rend = renders.get(compatibleEntities.get(i));
+				rend = renderMap.get(compatibleEntities.get(i));
 			}
 			if(!(rend instanceof RendererLivingEntity))
 			{
 				compatibleEntities.remove(i);
 				continue;
 			}
-			if(!renders.containsKey(compatibleEntities.get(i)))
+			if(!renderMap.containsKey(compatibleEntities.get(i)))
 			{
-				renders.put(compatibleEntities.get(i), (RendererLivingEntity)rend);
+			    renderMap.put(compatibleEntities.get(i), (RendererLivingEntity)rend);
 			}
 		}
 
@@ -98,12 +90,11 @@ public class ClientProxy extends CommonProxy
 		{
 			try
 			{
-				RendererLivingEntity rend = (RendererLivingEntity)renders.get(clz);
-				ModelList.addModelInfo(clz, new ModelInfo(clz, rend, (ModelBase)ObfuscationReflectionHelper.getPrivateValue(RendererLivingEntity.class, rend, ObfHelper.mainModel)));
+				RendererLivingEntity rend = (RendererLivingEntity)renderMap.get(clz);
+				modelMap.put(clz,  (ModelBase)ObfuscationReflectionHelper.getPrivateValue(RendererLivingEntity.class, rend, mainModel));
 			}
 			catch(Exception e)
-			{
-				ObfHelper.obfWarning();
+			{			
 				e.printStackTrace();
 			}
 		}
