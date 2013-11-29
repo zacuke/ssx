@@ -1,4 +1,4 @@
-package ssx;
+package ssx.iChun;
 
 import java.util.ArrayList;
 

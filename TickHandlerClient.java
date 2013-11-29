@@ -294,20 +294,11 @@ public class TickHandlerClient
 //		}
 
 	}
-//
+
 	public void renderTick(Minecraft mc, World world, float renderTick)
 	{
 	}
-//	public HashMap<String, EntityLivingBase> playerShifterInfo = new HashMap<String, EntityLivingBase>();
 
 	public float renderTick;
-//	public boolean renderingshift;
-//	public byte renderPass;
 
-//	public boolean renderingSsx;
-	
-//	public EntityLivingBase entInstance;
-
-	//public ModelInfo entModel;
-	
 }

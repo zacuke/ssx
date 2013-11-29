@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import org.lwjgl.input.Keyboard;
 
+import ssx.iChun.ObfHelper;
 import net.minecraft.client.model.ModelPig;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RendererLivingEntity;

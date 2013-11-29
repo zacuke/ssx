@@ -1,7 +1,8 @@
-package ssx;
+package ssx.iChun;
 
 import java.util.HashMap;
 
+import ssx.ShapeShifterX;
 import cpw.mods.fml.common.ObfuscationReflectionHelper;
 //import morph.common.Morph;
 //import morph.common.core.ObfHelper;

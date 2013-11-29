@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 import org.lwjgl.opengl.GL11;
 
+import ssx.iChun.ModelList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.settings.KeyBinding;

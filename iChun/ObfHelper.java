@@ -1,9 +1,10 @@
-package ssx;
+package ssx.iChun;
 
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
+import ssx.ShapeShifterX;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.EntityRenderer;
