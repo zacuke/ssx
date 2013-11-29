@@ -1,4 +1,4 @@
-ssx
+Shape Shifter X
 ===
 
-Shape Shifter X
+Press G to cycle through mobs
