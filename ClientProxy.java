@@ -1,4 +1,4 @@
-package ssx;
+package com.yhamp.ssz;
 
 
 import java.lang.reflect.Field;
@@ -11,7 +11,6 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RendererLivingEntity;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.ObfuscationReflectionHelper;
-import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 
 public class ClientProxy extends CommonProxy
@@ -100,12 +99,5 @@ public class ClientProxy extends CommonProxy
 		}
 	}
 
-	@Override
-	public void initTickHandlers()
-	{
-		super.initTickHandlers();
-		tickHandlerClient = new TickHandlerClient();
-		TickRegistry.registerTickHandler(tickHandlerClient, Side.CLIENT);
-	}
-
+	
 }

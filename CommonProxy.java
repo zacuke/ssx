@@ -1,4 +1,4 @@
-package ssx;
+package com.yhamp.ssz;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,7 +10,6 @@ import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 
 public class CommonProxy 
@@ -34,15 +33,6 @@ public class CommonProxy
 		}
 		compatibleEntities.add(EntityPlayer.class);
 	}
-
-	public void initTickHandlers()
-	{
-		tickHandlerServer = new TickHandlerServer();
-		TickRegistry.registerTickHandler(tickHandlerServer, Side.SERVER);
-	}
-
-	public TickHandlerClient tickHandlerClient;
-	public TickHandlerServer tickHandlerServer;
 
 	//these hold the magic
 	public ArrayList<Class> compatibleEntities = new ArrayList<Class>();

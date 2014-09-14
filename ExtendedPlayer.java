@@ -1,4 +1,4 @@
-package ssx;
+package com.yhamp.ssz;
 
 //import ssx.iChun.ModelInfo;
 import net.minecraft.client.model.ModelBase;
@@ -34,7 +34,7 @@ public class ExtendedPlayer implements IExtendedEntityProperties
 	private int currentShape, currentShapeSpecial, currentShapeSpecial2;
 	
 	
-	public String currentEntity;
+	public String currentEntity = "Player";
 	
 	public EntityLivingBase entInstance;
 
